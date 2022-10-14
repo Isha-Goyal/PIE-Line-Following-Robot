@@ -1,3 +1,8 @@
+#include <Adafruit_MotorShield.h>
+
+#include <Adafruit_CircuitPlayground.h>
+#include <Adafruit_Circuit_Playground.h>
+
 // include required libraries
 #include <Wire.h> // this is for some sort of controller/connection/thing
 #include <Adafruit_MotorShield.h> // motorshield library
