@@ -136,12 +136,14 @@ void loop() {
     // in between loops just so it's vaguely controllable/we get a good reading. 
 
     if (t >= lastTime + interval) {
+      Serial.print(checkLine())
       if (!checkLine()){
         stopBot(); // the robot is no longer near the line
         Serial.println("offline");
       }
 
       lastTime = t; // resets lastTime
+      Serial.print("last time: "); Serial.println(lastTime);
     }
   } else {
     stopBot();
@@ -184,12 +186,12 @@ void runBot(double u) {
     right->run(RELEASE);
     left->setSpeed(baseSpeed);
     left->run(FORWARD);
-    Serial.print(baseSpeed); Serial.print(", "); Serial.println(0); Serial.println(", ");
+    Serial.print(baseSpeed); Serial.print(", "); Serial.print(0); Serial.println(", ");
   } else { // turn left
     right->setSpeed(baseSpeed);
     left->run(RELEASE);
     right->run(FORWARD);
-    Serial.print(0); Serial.println(", "); Serial.println(baseSpeed); Serial.println(", ");
+    Serial.print(0); Serial.print(", "); Serial.print(baseSpeed); Serial.println(", ");
   }
   
 }
@@ -203,6 +205,7 @@ void setP(double newP) {
 // method to change base speed for serial control
 void setBaseSpeed(int newSpeed) {
   baseSpeed = newSpeed;
+  Serial.print("Speed: "); Serial.println(baseSpeed);
 }
 
 // method to print out values for serial control (and sanity)
