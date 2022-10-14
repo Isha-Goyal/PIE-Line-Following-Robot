@@ -9,10 +9,11 @@ ground4 = importdata('ground5.mat'); ground4 = ground4(3:end,2);
 t = .1*linspace(1, length(ground1)/4, 147);
 
 clf; hold on;
-plot(t, ground1, "b*");
-plot(t, ground2, "g*");
-plot(t, ground3, "c*");
-plot(t, ground4, "k*");
+plot(t, ground1, "*");
+plot(t, ground2, "*");
+plot(t, ground3, "*");
+plot(t, ground4, "*");
 
 ylabel('Voltage (mV)');
 xlabel('Time (seconds)');
+legend('Trial 1', 'Trial 2', 'Trial 3', 'Trial 4');

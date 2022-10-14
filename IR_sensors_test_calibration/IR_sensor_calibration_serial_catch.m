@@ -1,8 +1,8 @@
 clear s
-port = "COM4"; % adjust to your laptop's stuff
+port = "COM4"; % adjust to your laptop's arduino port
 
-audrate = 9600;
-s = serialport(port, buadrate);
+Baudrate = 9600;
+s = serialport(port, budrate);
 
 run = true;
 
