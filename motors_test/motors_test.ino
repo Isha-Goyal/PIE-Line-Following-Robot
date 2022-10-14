@@ -9,44 +9,46 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 // create DC motor object
 // note: it must have the asterisk to start for some reason. something about point and non
 // pointer types and scalar stuff. not exactly sure, but keep it.
-Adafruit_DCMotor *right = AFMS.getMotor(1); // currently connected to M1 (change if using different port)
+Adafruit_DCMotor *right = AFMS.getMotor(3); // currently connected to M1 (change if using different port)
 Adafruit_DCMotor *left = AFMS.getMotor(4); // currently connected to M4 (change if using different port)
 
 void setup() {
   AFMS.begin();
 
   // speeds range from 0 (stopped) to 255 (full speed)
-  right->setSpeed(150);
-  left->setSpeed(150);
+  right->setSpeed(50);
+  left->setSpeed(50);
 
-  myTime = millis();
+//  myTime = millis();
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  right->run(FORWARD);
+  left->run(FORWARD);
 
 }
 
 // drives both wheels at the same speed for the amount of milliseconds specified
-void driveForward(period) {
-  currentTime = myTime; //  starting time
-  while (myTime <= currentTime + period) { // goes until the period of time has elapsed
-    right->run(FORWARD);
-    left->run(FORWARD);
-  }
-
-  // stops once the time has passed
-  right->run(RELEASE);
-  left->run(RELEASE);
-  
-}
-
-// has the robot stop and wait for the amount of milliseconds specified
-void wait(period) {
-  currentTime = myTime;
-  while (myTime <= currentTime + period) {
-    right->run(RELEASE);
-    left->run(RELEASE);
-  }
-}
+//void driveForward(int period) {
+//  currentTime = myTime; //  starting time
+//  while (myTime <= currentTime + period) { // goes until the period of time has elapsed
+//    right->run(FORWARD);
+//    left->run(FORWARD);
+//  }
+//
+//  // stops once the time has passed
+//  right->run(RELEASE);
+//  left->run(RELEASE);
+//  
+//}
+//
+//// has the robot stop and wait for the amount of milliseconds specified
+//void wait(int period) {
+//  currentTime = myTime;
+//  while (myTime <= currentTime + period) {
+//    right->run(RELEASE);
+//    left->run(RELEASE);
+//  }
+//}
