@@ -3,9 +3,9 @@ const uint8_t rightSensor = 0;
 const uint8_t leftSensor = 1;
 
 // time variables
-unsigned long t; 
-const int interval = 3000; // interval between checks to make sure it's still on/near the line
-unsigned int lastTime; // keeps track of the last time it checked to make sure it was on the line
+unsigned long t = millis(); 
+const long interval = 3000; // interval between checks to make sure it's still on/near the line
+unsigned long lastTime = t; // keeps track of the last time it checked to make sure it was on the line
 
 // PID variables
 // our error is the difference between the left and right wheels, so we'll have a small number if they're both off the tape
@@ -46,7 +46,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *right = AFMS.getMotor(3); // currently connected to M1 (change if using different port)
 Adafruit_DCMotor *left = AFMS.getMotor(4); // currently connected to M4 (change if using different port)
 
-int baseSpeed = 25;
+int baseSpeed = 20;
 
 // boolean to keep track of whether we want the robot to run or not so we can start and stop at will
 bool start = false;
@@ -70,11 +70,14 @@ void setup() {
   right->setSpeed(baseSpeed);
   left->setSpeed(baseSpeed);
 
-  t = millis(); // keep track of time from start
+  Serial.println("time started"); 
+  Serial.print(t);
   
 }
 
 void loop() {
+
+  t = millis();
 
   // NOTE: need to  figure out how this is intaking serial commands
   while (Serial.available() > 0) {
@@ -136,14 +139,15 @@ void loop() {
     // in between loops just so it's vaguely controllable/we get a good reading. 
 
     if (t >= lastTime + interval) {
-      Serial.print(checkLine())
-      if (!checkLine()){
-        stopBot(); // the robot is no longer near the line
+      Serial.print("checkpoint 1");
+      if (!checkLine()){ // the robot is no longer near the line
+        runBot(-10); // make it turn to the right some more more
         Serial.println("offline");
+        checkLine();
       }
 
       lastTime = t; // resets lastTime
-      Serial.print("last time: "); Serial.println(lastTime);
+//      Serial.print("last time: "); Serial.println(lastTime);
     }
   } else {
     stopBot();
@@ -225,7 +229,7 @@ bool checkLine() {
   // turn one direction for a bit and if it sees the tape at any point during that, return true
   // the end condition of i is how we control how long it turns for
   for (double u = -1; u <= 2; u+=3) { // u will equal -1, then 2, and then this should end
-    for (int i=0; i < 500; i++) {
+    for (int i=0; i < 300; i++) {
       // if it's seeing the line, return true
       if (e > 5) {
         return true;
